@@ -1,12 +1,13 @@
 import './App.css';
 import React from 'react';
-// import axios from 'axios';
+import axios from 'axios';
 
 class App extends React.Component {
   constructor(props){
     super(props);
     this.state = {
       cityData: [],
+      city: '',
 
     }
   }
@@ -22,17 +23,28 @@ class App extends React.Component {
 //   })
 // }
 
-// handleInput = (e)=> {
-//   e.preventDefault();
-//   this.setState({
-//     city: e.target.value
-//   })
-// }
+handleInput = (e)=> {
+  e.preventDefault();
+  this.setState({
+    city: e.target.value
+  })
+}
 
-// getCityData = (e) =>{
-//   e.preventDefault();
+getCityData = async (e) =>{
+  e.preventDefault();
 
-// }
+  try{
+    let url = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&q=${this.state.city}&format=json`
+  
+    let cityData = await axios.get(url)
+  
+    console.log(cityData.data[0]);
+
+  } catch(err){
+    console.log(err);
+  }
+
+}
 
 render (){
   // let cityItems = this.state.cityData.map((city, index) =>{
@@ -46,6 +58,13 @@ render (){
     </form>
     <ul>
       {/* {CityItems} */}
+
+      <form onSubmit={this.getCityData}>
+        <label>
+          <input type="text" onInput={this.handleInput}/>
+          <button type='submit'>Explore!</button>
+        </label>
+    </form>
     </ul>
     </>
   )
