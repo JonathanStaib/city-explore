@@ -56,7 +56,7 @@ getCityData = async (e) =>{
     console.log(err);
     this.setState({
       err:true,
-      errMessage: err.config.message,
+      errMessage: "That is not a Location",
 
     })
   }
