@@ -1,6 +1,6 @@
 import './App.css';
 import React from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 
 class App extends React.Component {
   constructor(props){
@@ -11,33 +11,33 @@ class App extends React.Component {
     }
   }
 
-handleGetCity = (e)=>{
-  e.preventDefault();
-  let cityData = await axios.get();
+// handleGetCity = (e)=>{
+//   e.preventDefault();
+//   let cityData = await axios.get();
 
-  console.log(cityData.data);
-  this.setState({
-    citynData: cityData.data.results,
+//   console.log(cityData.data);
+//   this.setState({
+//     citynData: cityData.data.results,
 
-  })
-}
+//   })
+// }
 
-handleInput = (e)=> {
-  e.preventDefault();
-  this.setState({
-    city: e.target.value
-  })
-}
+// handleInput = (e)=> {
+//   e.preventDefault();
+//   this.setState({
+//     city: e.target.value
+//   })
+// }
 
-getCityData = (e) =>{
-  e.preventDefault();
+// getCityData = (e) =>{
+//   e.preventDefault();
 
-}
+// }
 
 render (){
-  let cityItems = this.state.cityData.map((city, index) =>{
-    return <li key={index}>{city.name}</li>
-  })
+  // let cityItems = this.state.cityData.map((city, index) =>{
+  //   return <li key={index}>{city.name}</li>
+  // })
   return(
     <>
     <h1>API Call</h1>
@@ -45,7 +45,7 @@ render (){
       <button>Search!</button>
     </form>
     <ul>
-      {CityItems}
+      {/* {CityItems} */}
     </ul>
     </>
   )
