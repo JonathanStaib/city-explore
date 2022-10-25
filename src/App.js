@@ -75,9 +75,7 @@ getMapData = async (e)=>{
 }
 
 render (){
-  // let cityItems = this.state.cityData.map((city, index) =>{
-  //   return <li key={index}>{city.name}</li>
-  // })
+  
   return(
     <>
     <h1>Find A City</h1>
