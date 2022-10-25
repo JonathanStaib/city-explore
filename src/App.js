@@ -8,6 +8,8 @@ class App extends React.Component {
     this.state = {
       cityData: [],
       city: '',
+      err: false,
+      errMessage:'',
 
     }
   }
@@ -39,9 +41,19 @@ getCityData = async (e) =>{
     let cityData = await axios.get(url)
   
     console.log(cityData.data[0]);
+    this.setState({
+      cityData: cityData.data[0],
+      err: false,
+
+  })
 
   } catch(err){
     console.log(err);
+    this.setState({
+      err:true,
+      errMessage: err.config.message,
+
+    })
   }
 
 }
@@ -56,7 +68,7 @@ render (){
     <form>
       <button>Search!</button>
     </form>
-    <ul>
+    
       {/* {CityItems} */}
 
       <form onSubmit={this.getCityData}>
@@ -65,7 +77,23 @@ render (){
           <button type='submit'>Explore!</button>
         </label>
     </form>
-    </ul>
+    
+    {
+      this.state.err ? 
+      <p>{this.state.errMessage}</p>
+      :
+      <ul>
+        <li>
+        City: {this.state.cityData.display_name}
+        </li>
+        <li>
+        latitude: {this.state.cityData.lat}
+        </li>
+        <li>
+        longitude: {this.state.cityData.lon}
+        </li>
+      </ul>
+    }
     </>
   )
 }
