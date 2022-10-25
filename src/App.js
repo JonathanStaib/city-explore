@@ -1,25 +1,54 @@
-import logo from './logo.svg';
 import './App.css';
+import React from 'react';
+// import axios from 'axios';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      cityData: [],
+
+    }
+  }
+
+// handleGetCity = (e)=>{
+//   e.preventDefault();
+//   let cityData = await axios.get();
+
+//   console.log(cityData.data);
+//   this.setState({
+//     citynData: cityData.data.results,
+
+//   })
+// }
+
+// handleInput = (e)=> {
+//   e.preventDefault();
+//   this.setState({
+//     city: e.target.value
+//   })
+// }
+
+// getCityData = (e) =>{
+//   e.preventDefault();
+
+// }
+
+render (){
+  // let cityItems = this.state.cityData.map((city, index) =>{
+  //   return <li key={index}>{city.name}</li>
+  // })
+  return(
+    <>
+    <h1>API Call</h1>
+    <form>
+      <button>Search!</button>
+    </form>
+    <ul>
+      {/* {CityItems} */}
+    </ul>
+    </>
+  )
 }
-
+}
 export default App;
