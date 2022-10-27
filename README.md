@@ -24,3 +24,4 @@ I will be using JavaScript, CSS and react(javascript) as well as Location APIs.
 ## Images
 
 [class 06 Sketch for API Usage](public/06-drawing.png)
+[Class 07 API Path Sketch Drawing](public/07-drawing.png)
