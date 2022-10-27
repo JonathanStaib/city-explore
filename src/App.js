@@ -1,6 +1,7 @@
 import './App.css';
 import React from 'react';
 import axios from 'axios';
+import Weather from './Weather';
 
 class App extends React.Component {
   constructor(props){
@@ -8,10 +9,11 @@ class App extends React.Component {
     this.state = {
       cityData: [],
       city: '',
-      err: false,
-      errMessage:'',
+      error: false,
+      errorMessage:'',
       lat: '',
       lon:'',
+      weatherData: [],
 
     }
   }
@@ -34,29 +36,37 @@ handleInput = (e)=> {
   })
 }
 
+handleSubmit = async (e) =>{
+  e.preventDefault();
+}
+
 getCityData = async (e) =>{
   e.preventDefault();
 
   try{
-    let url = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&q=${this.state.city}&format=json`
+    let locationUrl = `https://us1.locationiq.com/v1/search?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&q=${this.state.city}&format=json`
   
-    let cityData = await axios.get(url);
+    let cityData = await axios.get(locationUrl);
+    let cityToDisplay = cityData.data[0];
     let lon = cityData.data[0].lon;
     let lat = cityData.data[0].lat;
     
     console.log(cityData.data[0]);
+
+    
     this.setState({
-      cityData: cityData.data[0],
-      err: false,
+      cityData: cityToDisplay,
+      error: false,
       lon: lon,
       lat: lat,
-  })
-
-  } catch(err){
-    console.log(err);
+    })
+    this.getWeatherData(cityToDisplay);
+    
+  } catch(error){
+    console.log(error);
     this.setState({
-      err:true,
-      errMessage: "That is not a Location",
+      error:true,
+      errorMessage: "That is not a Location",
 
     })
   }
@@ -67,10 +77,23 @@ getMapData = async (e)=>{
   e.preventDefault();
 
   // let Url = `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${this.state.lat},${this.state.lon}&zoom=10`
+}
+getWeatherData= async (location)=> {
   try{
-
-  } catch{
-
+    let weatherUrl = `${process.env.REACT_APP_SERVER}/key?cityName=${this.state.city}&lat=${location.lat}&lon=${location.lon}`;
+    console.log(weatherUrl);
+    let weatherData = await axios.get(weatherUrl);
+    console.log(weatherData);
+    
+    this.setState({
+      weatherData: weatherData.data
+    });
+    console.log(weatherData);
+  } catch(error){
+    this.setState({
+      error: true,
+      errorMessage: error.message
+    });
   }
 }
 
@@ -90,8 +113,8 @@ render (){
     </form>
     
     {
-      this.state.err ? 
-      <p>{this.state.errMessage}</p>
+      this.state.error ? 
+      <p>{this.state.errorMessage}</p>
       :
       <>
       <ul>
@@ -99,15 +122,18 @@ render (){
         City: {this.state.cityData.display_name}
         </li>
         <li>
-        latitude: {this.state.cityData.lat}
+        Latitude: {this.state.cityData.lat}
         </li>
         <li>
-        longitude: {this.state.cityData.lon}
+        Longitude: {this.state.cityData.lon}
         </li>
       </ul>
       <section>
       <img src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${this.state.lat},${this.state.lon}&zoom=10`} alt={this.state.cityData.display_name}/>
       </section>
+      <Weather
+        weatherData={this.state.weatherData}
+      />
       </>
     }
     </>
