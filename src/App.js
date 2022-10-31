@@ -53,7 +53,7 @@ class App extends React.Component {
       let lon = cityData.data[0].lon;
       let lat = cityData.data[0].lat;
 
-      console.log(cityData.data[0]);
+      console.log(cityData);
 
 
       this.setState({
@@ -102,7 +102,7 @@ class App extends React.Component {
 
   getMovieData = async (movie) => {
     try {
-      let movieUrl = await axios.get(`${process.env.REACT_APP_SERVER}/movies?city_name=${movie.city}`);
+      let movieUrl = await axios.get(`${process.env.REACT_APP_SERVER}/movies?city_name=${this.state.city}`);
       this.setState({
         movieInfo: movieUrl.data
       });

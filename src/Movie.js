@@ -9,7 +9,7 @@ class Movie extends React.Component {
         <center><h1>Films</h1></center>
     {this.props.movieInfo.map((film, index) => (
       <div class="card-body">
-        <img variant="top" src={`https://image.tmdb.org/t/original/${film.img}`} alt="{film.title}"/>
+        <img src={`https://image.tmdb.org/t/p/w200/${film.img}`} alt="{film.title}"/>
         <h2 class="card-title">Title: {film.title}</h2>
         <p class="card-text">Overview: {film.overview}</p>
         <p class="card-text2">Popularity: {film.popularity}</p>
